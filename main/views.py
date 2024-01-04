@@ -1,18 +1,22 @@
-from typing import Any
+#from typing import Any
 from django.http import HttpResponse
 from django.shortcuts import render
 
 
 def index(request):
-  context: dict[str, Any] = {
-    'title': 'Home',
-    'content': 'Главная страница магазина - HOME',
-    'list': ['first', 'second'],
-    'dict': {'first': 1},
-    'is_authenticated': False
+  context: dict[str, str] = {
+    'title': 'Сумеречная - Главная',
+    'content': 'Магазин фэнтези и фантастики'
+
   }
 
   return render(request, 'main/index.html', context)
 
-def about(request):
-  return HttpResponse('About page')
+def about(request) -> HttpResponse:
+  context: dict[str, str] = {
+    'title': 'Сумеречная - О нас',
+    'content': 'О нас',
+    'text_on_page': 'Добро пожаловать в магазин фэнтези и фантастики. Этот магазин содержит только проверенные фэнтези проекты!))'
+    }
+
+  return render(request, 'main/about.html', context)

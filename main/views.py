@@ -7,8 +7,7 @@ def index(request):
   context: dict[str, str] = {
     'title': 'Сумеречная - Главная',
     'content': 'Магазин фэнтези и фантастики'
-
-  }
+}
 
   return render(request, 'main/index.html', context)
 

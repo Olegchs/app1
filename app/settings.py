@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles', #css
 
     'main',
+    'goods',
 ]
 
 MIDDLEWARE = [#промежуточные слои

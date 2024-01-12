@@ -1,4 +1,5 @@
 {% load static %}
+{% load goods_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +49,7 @@
                             <a class="nav-link  text-white" href="carts/cart.html">Корзина</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link  text-white" href="users/login.html">Войти</a>
+                            <a class="nav-link  text-white" href="{% url "users:login" %}">Войти</a>
                         </li>
                         <li class="nav-item dropdown ">
                             <a class="nav-link dropdown-toggle text-white" href="#" role="button"
@@ -57,18 +58,18 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item  text-white" href="carts/cart.html">Корзина</a></li>
-                                <li><a class="dropdown-item  text-white" href="users/profile.html">Личный кабинет</a>
+                                <li><a class="dropdown-item  text-white" href="{% url "users:profile" %}">Личный кабинет</a>
                                 </li>
                                 <li><a class="dropdown-item  text-white" href="{% url "admin:index" %}">Админ панель</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item  text-white" href="#">Выйти</a></li>
+                                <li><a class="dropdown-item  text-white" href="{% url "users:logout" %}">Выйти</a></li>
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="d-flex" role="search" action="{% url "catalog:search" %}" method="get">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success text-white" type="submit">Поиск</button>
                     </form>
                 </div>
@@ -88,13 +89,11 @@
                             height="16">
                     </button>
                     <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Все товары</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Кухня</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Спальня</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Гостинная</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Офис</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Фурнитура</a></li>
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">Декор</a></li>
+                        {% tag_categories as categories %}
+                        {% for category in categories %}
+                            <li><a class="dropdown-item text-white" href="{% url "catalog:index" category.slug %}">{{category.name}}
+                        {% endfor %}
+
                     </ul>
                 </div>
                 <!-- Значек корзины, вызывает модальное окно -->
